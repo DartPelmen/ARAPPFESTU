@@ -1,0 +1,219 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e27367bd3691bbf239709c249673a167",
+    "entities": [
+      {
+        "tableName": "Auditorium",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_auditorium` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `x_cord` REAL NOT NULL, `y_cord` REAL NOT NULL, `auditorium_lead` INTEGER NOT NULL, FOREIGN KEY(`auditorium_lead`) REFERENCES `Teacher`(`id_teacher`) ON UPDATE CASCADE ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_auditorium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xCord",
+            "columnName": "x_cord",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "yCord",
+            "columnName": "y_cord",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "leadId",
+            "columnName": "auditorium_lead",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_auditorium"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Teacher",
+            "onDelete": "RESTRICT",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "auditorium_lead"
+            ],
+            "referencedColumns": [
+              "id_teacher"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Route",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_auditorium_start` INTEGER NOT NULL, `id_auditorium_end` INTEGER NOT NULL, `id_route` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, FOREIGN KEY(`id_auditorium_start`) REFERENCES `Auditorium`(`id_auditorium`) ON UPDATE RESTRICT ON DELETE RESTRICT , FOREIGN KEY(`id_auditorium_end`) REFERENCES `Auditorium`(`id_auditorium`) ON UPDATE RESTRICT ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "idAuditoriumStart",
+            "columnName": "id_auditorium_start",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAuditoriumEnd",
+            "columnName": "id_auditorium_end",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRoute",
+            "columnName": "id_route",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_route"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "Auditorium",
+            "onDelete": "RESTRICT",
+            "onUpdate": "RESTRICT",
+            "columns": [
+              "id_auditorium_start"
+            ],
+            "referencedColumns": [
+              "id_auditorium"
+            ]
+          },
+          {
+            "table": "Auditorium",
+            "onDelete": "RESTRICT",
+            "onUpdate": "RESTRICT",
+            "columns": [
+              "id_auditorium_end"
+            ],
+            "referencedColumns": [
+              "id_auditorium"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Teacher",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_teacher` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `first_name` TEXT NOT NULL, `patronymic` TEXT NOT NULL, `last_name` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idTeacher",
+            "columnName": "id_teacher",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "first_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patronymic",
+            "columnName": "patronymic",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "last_name",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_teacher"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Lesson",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_lesson` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `date_time_start` INTEGER NOT NULL, `date_time_end` INTEGER NOT NULL, `id_auditorium` INTEGER NOT NULL, `id_teacher` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id_lesson",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "date_time_start",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTimeEnd",
+            "columnName": "date_time_end",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAuditorium",
+            "columnName": "id_auditorium",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idTeacher",
+            "columnName": "id_teacher",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id_lesson"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e27367bd3691bbf239709c249673a167')"
+    ]
+  }
+}

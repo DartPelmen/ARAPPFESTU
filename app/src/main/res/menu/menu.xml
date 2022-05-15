@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/routeListFragment"
+        android:icon="@drawable/ic_action_map"
+        android:title="маршруты" />
+    <item
+        android:id="@+id/timetableFragment"
+        android:icon="@drawable/ic_action_timetable"
+        android:tint="#535353"
+        android:title="расписание" />
+    <item
+        android:icon="@drawable/ic_action_auditorium"
+        android:id="@+id/ARFragment"
+        android:title="аудитории" />
+</menu>

@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+
+}
+
+android {
+    compileSdk 32
+    buildFeatures {
+        viewBinding = true
+    }
+    defaultConfig {
+        applicationId "edu.festu.ivan.kuznetsov.myapplication"
+        minSdk 29
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+            kapt  {
+                arguments {
+                    arg("room.schemaLocation", "$projectDir/schemas")
+                }
+            }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    kapt 'androidx.room:room-compiler:2.4.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.2'
+    implementation 'androidx.core:core-ktx:1.7.0'
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
+
+    implementation 'com.google.android.material:material:1.6.0'
+
+    // Google Cloud Vision API via REST.
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    // Text features
+ //   implementation 'com.google.mlkit:text-recognition:16.0.0-beta4'
+    // Or comment the dependency above and uncomment the dependency below to
+    // use unbundled model that depends on Google Play Services
+     implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
+//    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0-beta4'
+//    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0-beta4'
+//    implementation 'com.google.mlkit:text-recognition-japanese:16.0.0-beta4'
+//    implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta4'
+    // MLKit
+//    implementation 'com.google.mlkit:object-detection:16.2.3'
+//    implementation 'com.google.mlkit:object-detection-custom:16.3.1'
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+    // ARCore (Google Play Services for AR) library.
+    implementation 'com.google.ar:core:1.30.0'
+
+
+
+    // Obj - a simple Wavefront OBJ file loader
+    // https://github.com/javagl/Obj
+    implementation 'de.javagl:obj:0.2.1'
+    implementation 'androidx.fragment:fragment:1.4.1'
+}

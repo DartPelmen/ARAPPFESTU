@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ARFragment">
+
+    <fragment
+        android:id="@+id/ARFragment"
+        android:name="edu.festu.ivan.kuznetsov.myapplication.ARFragment"
+        android:label="fragment_a_r"
+        tools:layout="@layout/fragment_a_r" >
+        <action
+            android:id="@+id/action_ARFragment_to_routeFragment"
+            app:destination="@id/routeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timetableFragment"
+        android:name="edu.festu.ivan.kuznetsov.myapplication.ui.TimetableFragment"
+        android:label="fragment_timetable"
+        tools:layout="@layout/fragment_timetable" >
+        <action
+            android:id="@+id/action_timetableFragment_to_lessonFragment"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routeListFragment"
+        android:name="edu.festu.ivan.kuznetsov.myapplication.ui.RouteListFragment"
+        android:label="fragment_route_list"
+        tools:layout="@layout/fragment_route_list" >
+        <action
+            android:id="@+id/action_routeListFragment_to_routeFragment"
+            app:destination="@id/routeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="myArg"
+                app:argType="integer"
+                android:defaultValue="0" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="edu.festu.ivan.kuznetsov.myapplication.ui.LessonFragment"
+        android:label="fragment_lesson"
+        tools:layout="@layout/fragment_lesson" />
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="edu.festu.ivan.kuznetsov.myapplication.ui.RouteFragment"
+        android:label="fragment_route"
+        tools:layout="@layout/fragment_route" />
+</navigation>
