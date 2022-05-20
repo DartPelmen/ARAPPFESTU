@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import edu.festu.ivan.kuznetsov.myapplication.R
@@ -30,10 +30,10 @@ class AddLessonFragment: DialogFragment(){
             return exampleDialog
         }
     }
+    lateinit var lesson: Lesson
     private lateinit var teachers: List<Teacher>
     private lateinit var auditoriums: List<Auditorium>
 
-    private var toolbar: Toolbar? = null
     private lateinit var binding: LessonDialogBinding
 
 
@@ -72,23 +72,27 @@ class AddLessonFragment: DialogFragment(){
         binding.toolbar.title = "Добавить занятие"
         binding.toolbar.inflateMenu(R.menu.example_dialog)
         binding.toolbar.setOnMenuItemClickListener { _ ->
+            Log.d("ADDLESSON", "ADDING")
             val start = LocalDateTime.of(binding.dateLesson.year,binding.dateLesson.month,
                 binding.dateLesson.dayOfMonth, binding.startTime.hour, binding.startTime.minute,0,0)
             val end = LocalDateTime.of(binding.dateLesson.year,binding.dateLesson.month,
                 binding.dateLesson.dayOfMonth, binding.endTime.hour, binding.endTime.minute,0,0)
-            val l = Lesson(binding.lessonTitle.toString(),start,end,
+                lesson = Lesson(binding.lessonTitle.text.toString(),start,end,
                 auditoriums.first { it.toString()==binding.auditorium.text.toString()}.id,
                 teachers.first{it.toString()==binding.teacher.text.toString()}.idTeacher)
-            Log.d(TAG, l.toString())
-            Executors.newSingleThreadExecutor().execute{
-                MyDatabase.getInstance(requireContext()).getLessonDAO().add(l)
-                requireActivity().runOnUiThread {
-                    dismiss()
-                }
+                Log.d(TAG, "ADDING  $lesson")
+            requireActivity().supportFragmentManager.setFragmentResult("addLesson",
+                bundleOf("idLesson" to lesson.id,
+                "lessonTitle" to lesson.title,
+                "idTeacher" to lesson.idTeacher,
+                "auditorium" to lesson.idAuditorium,
+                "startDate" to lesson.dateTime.toString(),
+                "endDate" to lesson.dateTimeEnd.toString()))
+            dismiss()
+                true
             }
-            true
         }
-    }
+
 
     override fun onStart() {
         super.onStart()

@@ -23,6 +23,6 @@ data class Lesson(
     @ColumnInfo(name = "id_lesson")
     var id: String = UUID.randomUUID().toString()
     override fun toString(): String {
-        return title
+        return "$title $dateTime $dateTimeEnd"
     }
 }

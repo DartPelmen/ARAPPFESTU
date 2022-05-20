@@ -55,7 +55,7 @@ class ARFragment : Fragment() {
     // Rendering components
     lateinit var backgroundRenderer: BackgroundRenderer
     val pointCloudRender = PointCloudRender()
-    val labelRenderer = LabelRender()
+    private lateinit var  labelRenderer : LabelRender
     private var installRequested = false
     private var shouldConfigureSession = false
 
@@ -77,7 +77,7 @@ class ARFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "GO TO CREATE FRAGMENT")
-
+        labelRenderer = LabelRender(WeakReference(context))
         yuvConverter = YuvToRgbConverter(requireContext())
 
 

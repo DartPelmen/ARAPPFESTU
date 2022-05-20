@@ -1,19 +1,21 @@
 package edu.festu.ivan.kuznetsov.myapplication.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import edu.festu.ivan.kuznetsov.myapplication.database.lesson.Lesson
-import edu.festu.ivan.kuznetsov.myapplication.database.route.Route
 import edu.festu.ivan.kuznetsov.myapplication.databinding.LessonItemBinding
-import edu.festu.ivan.kuznetsov.myapplication.databinding.RouteItemBinding
 import edu.festu.ivan.kuznetsov.myapplication.util.LessonDiffUtils
-import edu.festu.ivan.kuznetsov.myapplication.util.RouteDiffUtils
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class TimetableAdapter(private var onItemClickListener: OnItemClickListener): RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
     private var lessons: MutableList<Lesson> = mutableListOf()
-
+    companion object {
+        private val TAG = TimetableAdapter::class.java.simpleName
+    }
     init {
         lessons = mutableListOf()
     }
@@ -21,7 +23,7 @@ class TimetableAdapter(private var onItemClickListener: OnItemClickListener): Re
 
     inner class ViewHolder(val binding: LessonItemBinding) : RecyclerView.ViewHolder(binding.root){
         override fun toString(): String {
-            return super.toString() + " '" + binding.lessonTitle + "'"
+            return super.toString() + " '" + binding.lessonTitle.text.toString() + "'"
         }
     }
 
@@ -60,32 +62,12 @@ class TimetableAdapter(private var onItemClickListener: OnItemClickListener): Re
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.d(TAG, lessons[position].toString())
         holder.binding.lessonTitle.text = lessons[position].title
-        holder.binding.startDate2.text = buildString {
-        append(lessons[position].dateTime.dayOfMonth)
-        append(" ")
-        append(lessons[position].dateTime.month.value)
-        append(" ")
-        append(lessons[position].dateTime.year)
-    }
-        holder.binding.startTime2.text = buildString {
-        append(lessons[position].dateTime.hour)
-        append(":")
-        append(lessons[position].dateTime.minute)
-    }
-        holder.binding.endDate.text = buildString {
-        append(lessons[position].dateTimeEnd.dayOfMonth)
-        append(" ")
-        append(lessons[position].dateTimeEnd.month.name)
-        append(" ")
-        append(lessons[position].dateTimeEnd.year)
-    }
-        holder.binding.endTime.text =
-            buildString {
-        append(lessons[position].dateTimeEnd.hour)
-        append(":")
-        append(lessons[position].dateTimeEnd.minute)
-    }
+        holder.binding.startDate2.text = lessons[position].dateTime.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        holder.binding.startTime2.text = lessons[position].dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))
+        holder.binding.endDate.text = lessons[position].dateTimeEnd.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+        holder.binding.endTime.text =lessons[position].dateTimeEnd.format(DateTimeFormatter.ofPattern("hh:mm"))
     }
 
     override fun getItemCount(): Int = lessons.size

@@ -16,18 +16,23 @@
 
 package edu.festu.ivan.kuznetsov.myapplication.ar
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.opengl.GLES30
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
+import edu.festu.ivan.kuznetsov.myapplication.R
 import edu.festu.ivan.kuznetsov.myapplication.ar.render.GLError
 import edu.festu.ivan.kuznetsov.myapplication.ar.render.SampleRender
 import edu.festu.ivan.kuznetsov.myapplication.ar.render.Texture
+import java.lang.ref.WeakReference
 import java.nio.ByteBuffer
 
 /** Generates and caches GL textures for label names. */
-class TextTextureCache {
+class TextTextureCache(val context: WeakReference<Context>) {
   companion object {
     private val TAG = TextTextureCache::class.java.simpleName
   }
@@ -91,15 +96,21 @@ class TextTextureCache {
     }
 
   private fun generateBitmapFromString(string: String): Bitmap {
-    val w = 512
-    val h = 256
+    val w = 640
+    val h = 128
     return Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888).apply {
       eraseColor(0)
       val strings = string.split("\n")
+
       Canvas(this).apply {
+        context.get()?.let{
+          drawBitmap(
+            ResourcesCompat.getDrawable(it.resources,R.drawable.ic_borders,null)?.toBitmap(this.width,this.height)!!,
+          0f,0f,null)
+        }
         for (i in strings.indices) {
-          drawText(strings[i], w / 2f, (h / 2 + (18f* i)), strokePaint)
-          drawText(strings[i], w / 2f, (h / 2 + (18f* i)), textPaint)
+          drawText(strings[i], w / 2f, h/4+(18f* i), strokePaint)
+          drawText(strings[i], w / 2f, h/4+(18f* i), textPaint)
         }
       }
     }

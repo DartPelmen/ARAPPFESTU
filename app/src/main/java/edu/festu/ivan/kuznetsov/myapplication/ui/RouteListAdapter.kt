@@ -48,9 +48,7 @@ class RouteListAdapter(private var onItemClickListener: OnItemClickListener): Re
         return holder
     }
     private fun fireItemClicked(position: Int, item: Route) {
-        if (onItemClickListener != null) {
-            onItemClickListener.onItemClicked(position, item)
-        }
+        onItemClickListener.onItemClicked(position, item)
     }
 
     // суда подписываемся активитей, фрагментом, перезнтером или чем нибудь еще

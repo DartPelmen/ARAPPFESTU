@@ -17,6 +17,7 @@ class RouteRVAdapter: RecyclerView.Adapter<RouteRVAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RouteItemBinding) : RecyclerView.ViewHolder(binding.root){
         override fun toString(): String {
+
             return super.toString() + " '" + binding.titleRoute + "'"
         }
     }

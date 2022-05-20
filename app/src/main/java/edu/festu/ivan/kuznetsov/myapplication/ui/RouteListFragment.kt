@@ -23,7 +23,6 @@ import java.lang.ref.WeakReference
 import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
-
 class RouteListFragment : Fragment() {
     companion object{
         private val TAG = RouteListFragment::class.java.simpleName
@@ -37,7 +36,6 @@ class RouteListFragment : Fragment() {
                 "route_end" to item.idAuditoriumEnd,
                 "route_id" to item.idRoute))
         }
-
     })
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
